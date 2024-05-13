@@ -1,0 +1,32 @@
+$ sudo apt-get update
+$ sudo apt-get -y install git binutils rustc cargo pkg-config libssl-dev
+$ git clone https://github.com/aws/efs-utils
+$ cd efs-utils
+$ ./build-deb.sh
+$ sudo apt-get -y install ./build/amazon-efs-utils*deb
+
+
+To mount using the file system id:
+
+
+sudo mount -t efs file-system-id efs-mount-point/
+Use the ID of the file system you are mounting in place file-system-id and efs in place of efs-mount-point.
+
+
+sudo mount -t efs fs-abcd123456789ef0 efs/
+Alternatively, if you want to use encryption of data in transit, you can mount your file system with the following command.
+
+
+sudo mount -t efs -o tls fs-abcd123456789ef0:/ efs/
+To mount using the file system DNS name:
+
+
+sudo mount -t efs -o tls file-system-dns-name efs-mount-point/
+
+sudo mount -t efs -o tls fs-abcd123456789ef0.efs.us-east-2.amazonaws.com efs/
+To mount using the mount target IP address:
+
+
+sudo mount -t efs -o tls,mounttargetip=mount-target-ip file-system-id efs-mount-point/
+
+sudo mount -t efs -o tls,mounttargetip=192.0.2.0 fs-abcd123456789ef0 efs/
